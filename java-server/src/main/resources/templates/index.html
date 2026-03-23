@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>🏏 Cricket Scores - Java</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a472a 0%, #0e2a1a 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { text-align: center; color: #ffd700; margin-bottom: 20px; font-size: 3em; }
+        .lang-badge {
+            text-align: center;
+            background: #ffd700;
+            color: #1a472a;
+            display: inline-block;
+            padding: 5px 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .matches-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .match-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .teams { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .team { text-align: center; flex: 1; }
+        .team-name { font-size: 1.3em; color: #1a472a; font-weight: bold; }
+        .team-score { font-size: 1.5em; font-weight: bold; color: #333; }
+        .vs { font-size: 1.2em; color: #ff6600; padding: 0 15px; }
+        .status { background: #ffd700; padding: 8px; border-radius: 8px; text-align: center; font-weight: bold; }
+        .result { background: #1a472a; color: #ffd700; padding: 8px; border-radius: 8px; text-align: center; font-weight: bold; }
+        .overs { text-align: center; color: #666; margin-top: 10px; }
+        .footer { text-align: center; color: #ccc; margin-top: 30px; padding: 20px; }
+        .time { font-size: 0.8em; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="text-align: center;">
+            <div class="lang-badge">☕ JAVA SPRING BOOT SERVER</div>
+        </div>
+        <h1>🏏 LIVE CRICKET SCORES</h1>
+        <div class="matches-grid">
+            <div th:each="match : ${matches}" class="match-card">
+                <div class="teams">
+                    <div class="team">
+                        <div class="team-name" th:text="${match.team1}"></div>
+                        <div class="team-score" th:text="${match.score1}"></div>
+                    </div>
+                    <div class="vs">VS</div>
+                    <div class="team">
+                        <div class="team-name" th:text="${match.team2}"></div>
+                        <div class="team-score" th:text="${match.score2}"></div>
+                    </div>
+                </div>
+                <div class="details">
+                    <div th:if="${match.result}" class="result" th:text="'🏆 ' + ${match.result}"></div>
+                    <div th:unless="${match.result}" class="status" th:text="'⚡ ' + ${match.status}"></div>
+                    <div class="overs" th:text="'Overs: ' + ${match.overs}"></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Language: <strong>Java</strong> | Framework: Spring Boot | Internal Port: 9002</p>
+            <p>Accessed via: <strong>/java</strong> path on proxy</p>
+            <div class="time" th:text="${timestamp}"></div>
+        </div>
+    </div>
+</body>
+</html>
